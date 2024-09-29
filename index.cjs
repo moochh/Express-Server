@@ -16,17 +16,23 @@ app.get('/', (req, res) => {
 
 // Endpoint
 const usersEndpoint =
-	'https://randomuser.me/api/?inc=name,email,gender,dob&nat=us';
+	'https://randomuser.me/api/?inc=name,gender,email,dob&nat=us&results=';
 
 app.get('/users', async (req, res) => {
 	const numberOfUsers = Math.floor(Math.random() * 5) + 1;
 	const users = [];
 
-	// Fetch users from API
-	for (let i = 0; i < numberOfUsers; i++) {
-		const user = await fetch(usersEndpoint).then((res) => res.json());
-		users.push(user);
-	}
+	const response = await fetch(usersEndpoint + numberOfUsers);
+	const data = await response.json();
+
+	data.results.forEach((user) => {
+		users.push({
+			name: user.name,
+			gender: user.gender,
+			email: user.email,
+			dob: user.dob
+		});
+	});
 
 	res.json(users);
 });

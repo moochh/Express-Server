@@ -13,24 +13,18 @@ app.get('/', (req, res) => {
 });
 
 // Endpoint
-app.get('/users', (req, res) => {
-	const users = [
-		{
-			id: 1,
-			name: 'John Doe',
-			email: 'johndoe@example.com'
-		},
-		{
-			id: 2,
-			name: 'Jane Doe',
-			email: 'janedoe@example.com'
-		},
-		{
-			id: 3,
-			name: 'Bob Smith',
-			email: 'bobsmith@example.com'
-		}
-	];
+const usersEndpoint =
+	'https://randomuser.me/api/?inc=name,email,gender,dob&nat=us';
+
+app.get('/users', async (req, res) => {
+	const numberOfUsers = Math.floor(Math.random() * 5) + 1;
+	const users = [];
+
+	// Fetch users from API
+	for (let i = 0; i < numberOfUsers; i++) {
+		const user = await fetch(usersEndpoint).then((res) => res.json());
+		users.push(user);
+	}
 
 	res.json(users);
 });

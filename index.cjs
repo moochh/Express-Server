@@ -11,7 +11,7 @@ app.use(express.json());
 
 // Server start
 app.get('/', (req, res) => {
-	res.send('Hello, World!');
+	res.send('Server running...');
 });
 
 // Endpoint

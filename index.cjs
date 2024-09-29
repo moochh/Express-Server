@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 
 // Endpoint
 const usersEndpoint =
-	'https://randomuser.me/api/?inc=name,gender,email,dob&nat=us&results=';
+	'https://randomuser.me/api/?inc=name,gender,email,dob,login&nat=us&results=';
 
 app.get('/users', async (req, res) => {
 	const numberOfUsers = Math.floor(Math.random() * 5) + 1;
@@ -30,7 +30,8 @@ app.get('/users', async (req, res) => {
 			name: user.name,
 			gender: user.gender,
 			email: user.email,
-			dob: user.dob
+			dob: user.dob,
+			id: user.login.uuid
 		});
 	});
 

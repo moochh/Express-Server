@@ -1,10 +1,12 @@
 // Import http library
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 // use env variable to define tcp/ip port with a default
 const PORT = process.env.PORT || 8080;
 
+app.use(cors());
 app.use(express.json());
 
 // Server start

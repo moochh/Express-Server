@@ -1,5 +1,4 @@
 // Import http library
-const http = require('http');
 const express = require('express');
 const app = express();
 
@@ -8,8 +7,10 @@ const PORT = process.env.PORT || 8080;
 
 app.use(express.json());
 
-//create our server object
-const server = http.createServer();
+// Server start
+app.get('/api', (req, res) => {
+	res.send('Hello, World!');
+});
 
 // Endpoint
 app.get('/users', (req, res) => {
@@ -30,19 +31,11 @@ app.get('/users', (req, res) => {
 			email: 'bobsmith@example.com'
 		}
 	];
+
 	res.json(users);
 });
 
-// We define a function that runs in response a request event
-server.on('request', (request, response) => {
-	// handle request based on method then URL
-	response.statusCode = 200;
-	response.write('Hello World!');
-	response.end();
-});
-
-// get the server to start listening
-server.listen(PORT, (err) => {
-	// error checking
-	err ? console.error(err) : console.log(`listening on port ${PORT}`);
+// Start the server
+app.listen(PORT, () => {
+	console.log(`Server is running on port ${PORT}`);
 });
